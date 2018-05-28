@@ -1,0 +1,36 @@
+{
+   "Commands":[
+      {
+         "Command":"kappa",
+         "Response":"Kappa"
+      },
+      {
+         "Command":"corp",
+         "Response":"BabyRage BabyRage BabyRage"
+      },
+      {
+         "Command":"!wumbie",
+         "Response":"wumBro V E R T I C A L I T Y wumBro"
+      },
+      {
+         "Command":"wumbie",
+         "Response":"wumBro V E R T I C A L I T Y wumBro"
+      },
+      {
+         "Command":"cursor",
+         "Response":"TableHere MOVE THE MOUSE CURSOR TableHere"
+      },
+      {
+         "Command":"cursor",
+         "Response":"TableHere MOVE THE MOUSE CURSOR TableHere"
+      },
+      {
+         "Command":"jimbo",
+         "Response":"treech1Kappa not to bad treech1Kappa"
+      },
+      {
+         "Command":"soy",
+         "Response":"BloodTrail Hop on the Atrain you're about to get carried BloodTrail"
+      }
+   ]
+}
