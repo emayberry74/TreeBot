@@ -14,11 +14,15 @@ def get_argc(command):
     return commands[command]['argc']
 
 def check_has_correct_args(message, command):
-	message = message.split(' ')
-	if 'argc' not in commands[command]:
-		return True
-	if len(message) - 1 == commands[command]['argc']:
-		return True
+    message = message.split(' ')
+
+    if commands[command]['argc'] is 'optional':
+        return True
+    if 'argc' not in commands[command]:
+        return True
+    if len(message) - 1 == commands[command]['argc']:
+        return True
+
 
 def addCusCommands(cmd, response):
     with open("commands.json") as data_file:
@@ -60,16 +64,18 @@ def removeCusCommands(cmd):
 def findCusCommand(cmd):
     if cmd in cfg.cusCommands:
         return cfg.cusCommands.get(cmd)
+    if cmd.lower() in cfg.cusCommands:
+        return cfg.cusCommands.get(cmd)
 
-def pass_to_function(command, args):
-	command = command.replace('!', '')
+def pass_to_function(command, *args, **kwargs):
+    command = command.replace('!', '')
+    print(command)
+    module = importlib.import_module('commands.%s' % command)
+    print(module)
+    print(2)
+    function = getattr(module, command)
 
-	module = importlib.import_module('commands.%s' % command)
-	function = getattr(module, command)
-
-	print(args)
-
-	if args:
-		return function(args)
-	else:
-		return function()
+    if args:
+        return function(*args[0], **kwargs)
+    else:
+        return function(*args[0], **kwargs)

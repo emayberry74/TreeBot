@@ -1,9 +1,10 @@
 import requests, json, datetime
 from time import sleep
 import config as cfg
+import urllib
 
 
-def get_follower_status(username="testuser", channel="treechar102"):
+def get_follower_status(username="testuser", channel="jimondaspot"):
     try:
         url = "https://api.twitch.tv/kraken/users/{0}/follows/channels/{1}{2}".format(
             username.lower().lstrip("@"), channel,
@@ -55,7 +56,7 @@ def getStreamInfo(channel):
     return data1
 
 def getStreamID(channel):
-    url = "https://api.twitch.tv/kraken/users?login=treechar102"
+    url = "https://api.twitch.tv/kraken/users?login=jimondaspot"
     headers = {"Accept": "application/vnd.twitchtv.v5+json", "Client-ID": "zsrmikty0jlfbypr5ia8afuv8ur3ib"}
     data = requests.get(url, headers=headers)
     data1 = data.json()
@@ -84,3 +85,30 @@ def get_stream_uptime(channel):
         return str(time_delta).split(".")[0]
     else:
         return None
+
+def threadFillOpList():
+    while True:
+        try:
+            url = "http://tmi.twitch.tv/group/user/jimondaspot/chatters"
+            req = urllib.request.Request(url, headers={"accept": "*/*"})
+            response = urllib.request.urlopen(req).read()
+            cfg.oplist.clear()
+            data = json.loads(response)
+            for p in data["chatters"]["viewers"]:
+                cfg.userList[p] = "viewer"
+            for p in data["chatters"]["moderators"]:
+                cfg.oplist[p] = "mod"
+                cfg.userList[p] = "mod"
+            for p in data["chatters"]["global_mods"]:
+                cfg.oplist[p] = "global_mod"
+                cfg.userlist[p] = "global_mod"
+            for p in data["chatters"]["admins"]:
+                cfg.oplist[p] = "admin"
+                cfg.userList[p] = "admin"
+            for p in data["chatters"]["staff"]:
+                cfg.oplist[p] = "staff"
+                cfg.userList[p] = "staff"
+        except:
+            'do nothing'
+        sleep(5)
+

@@ -40,7 +40,9 @@ class IRC:
         self.s.send("NICK {}\r\n".format(cfg.NICK).encode("utf-8"))
         self.joinChannels(cfg.CHAN)
 
+
     def joinChannels(self,channels):
+        print("THIS IS THE" + channels)
         self.s.send("JOIN #{}\r\n".format(channels).encode("utf-8"))
         self.sendMessage(channels, "Joined")
         print("Joined " + channels)
