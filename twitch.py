@@ -4,7 +4,7 @@ import config as cfg
 import urllib
 
 
-def get_follower_status(username="testuser", channel="jimondaspot"):
+def get_follower_status(username="testuser", channel=cfg.CHAN):
     try:
         url = "https://api.twitch.tv/kraken/users/{0}/follows/channels/{1}{2}".format(
             username.lower().lstrip("@"), channel,
@@ -56,7 +56,7 @@ def getStreamInfo(channel):
     return data1
 
 def getStreamID(channel):
-    url = "https://api.twitch.tv/kraken/users?login=jimondaspot"
+    url = "https://api.twitch.tv/kraken/users?login={}".format(cfg.CHAN)
     headers = {"Accept": "application/vnd.twitchtv.v5+json", "Client-ID": "zsrmikty0jlfbypr5ia8afuv8ur3ib"}
     data = requests.get(url, headers=headers)
     data1 = data.json()
@@ -89,7 +89,7 @@ def get_stream_uptime(channel):
 def threadFillOpList():
     while True:
         try:
-            url = "http://tmi.twitch.tv/group/user/jimondaspot/chatters"
+            url = "http://tmi.twitch.tv/group/user/{}/chatters".format(cfg.CHAN)
             req = urllib.request.Request(url, headers={"accept": "*/*"})
             response = urllib.request.urlopen(req).read()
             cfg.oplist.clear()
