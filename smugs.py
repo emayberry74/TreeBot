@@ -8,7 +8,7 @@ def savePoints(username):
         data = json.load(data_file)
     for i in data["Users"]:
         if username in i["Username"]:
-            if cfg.chatters.get(username).points < 0 or username.lower() is "jimondaspot":
+            if cfg.chatters.get(username).points < 0 or username.lower() is cfg.CHAN:
                 cfg.chatters.get(username).points = 0
                 i["Current Points"] = 0
             else:
